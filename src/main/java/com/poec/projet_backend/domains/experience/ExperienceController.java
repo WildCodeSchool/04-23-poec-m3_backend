@@ -1,13 +1,15 @@
-package com.poec.projet_backend.experience;
+package com.poec.projet_backend.domains.experience;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/experience")
+@Data
 public class ExperienceController {
 
-    @Autowired
-    private ExperienceService service;
+    private final ExperienceService service;
+
 }
