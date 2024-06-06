@@ -8,6 +8,9 @@ import com.poec.projet_backend.domains.mentor.MentorRepository;
 import com.poec.projet_backend.domains.mentor.MentorService;
 import com.poec.projet_backend.domains.skill.Skill;
 import com.poec.projet_backend.domains.skill.SkillRepository;
+import com.poec.projet_backend.domains.student.Student;
+import com.poec.projet_backend.domains.student.StudentDTO;
+import com.poec.projet_backend.domains.student.StudentService;
 import com.poec.projet_backend.user_app.Role;
 import com.poec.projet_backend.user_app.UserApp;
 import com.poec.projet_backend.user_app.UserAppRepository;
@@ -16,6 +19,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -27,6 +33,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final SkillRepository skillRepository;
     private final MentorService mentorService;
     private final MentorRepository mentorRepository;
+    private final StudentService studentService;
 
     @Override
     @Transactional
@@ -61,14 +68,17 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
         createMentor(new MentorDTO("Marie", "Delo", "super dev", "Super mentorette", "no fking image","git","link",1L));
-
         createMentor(new MentorDTO("Mathieu", "Dupont", "Data Scientist", "Expert en Data", "https://picsum.photos/200", "githubJean", "linkedinJean", 2L));
         createMentor(new MentorDTO("Mahdi", "Martin", "UX Designer", "Créateur d'Expérience", "https://picsum.photos/200", "githubAlice", "linkedinAlice", 3L));
         createMentor(new MentorDTO("Lucas", "Moreau", "DevOps", "Spécialiste en Infrastructure", "https://picsum.photos/200", "githubLucas", "linkedinLucas", 4L));
         createMentor(new MentorDTO("Emma", "Leroy", "Product Manager", "Gestionnaire de Produit", "https://picsum.photos/200", "githubEmma", "linkedinEmma", 5L));
 
-
-       // createMentor(new MentorDTO("Marie", "Delaire", "Dev", "Super Mentorette", "https://picsum.photos/200", "github", "linkedin", 1L));
+        List<Long> mentorids = new ArrayList<>();
+        createStudent(new StudentDTO("Marie", "Delaire", "Dev", "Super Mentorette", "https://picsum.photos/200", "github/mariedelaire", "linkedin/mariedelaire", 6L, mentorids));
+        createStudent(new StudentDTO("Jean", "Dupont", "Data Scientist", "Expert en données", "https://picsum.photos/200", "github/jeandupont", "linkedin/jeandupont", 7L, mentorids));
+        createStudent(new StudentDTO("Alice", "Martin", "UX Designer", "Créatrice d'expériences", "https://picsum.photos/200", "github/alicemartin", "linkedin/alicemartin", 8L, mentorids));
+        createStudent(new StudentDTO("Luc", "Girard", "Backend Developer", "Maître du backend", "https://picsum.photos/200", "github/lucgirard", "linkedin/lucgirard", 9L, mentorids));
+        createStudent(new StudentDTO("Sophie", "Leblanc", "Fullstack Developer", "Génie du Fullstack", "https://picsum.photos/200", "github/sophieleblanc", "linkedin/sophieleblanc", 10L, mentorids));
 
     }
 
@@ -116,5 +126,9 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     private void createMentor(MentorDTO newMentor){
          mentorService.addMentorByUserId(newMentor);
+    }
+
+    private void createStudent(StudentDTO student){
+        studentService.addStudentByUserId(student);
     }
 }

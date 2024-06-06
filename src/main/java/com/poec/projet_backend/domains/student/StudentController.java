@@ -1,5 +1,6 @@
 package com.poec.projet_backend.domains.student;
 
+import com.poec.projet_backend.domains.mentor.MentorDTO;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,5 +18,10 @@ public class StudentController {
     @PutMapping("/{userId}")
     public Student updateStudentByUserId(@PathVariable Long userId, @RequestBody Student student){
         return service.updateStudentByUserId(userId, student);
+    }
+
+    @PostMapping("/add")
+    public StudentDTO addMentor(@RequestBody StudentDTO student){
+        return service.addStudentByUserId(student).toStudentDTO();
     }
 }
