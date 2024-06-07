@@ -14,7 +14,8 @@ public class LanguageService {
     private final LanguageRepository repository;
 
     public List<LanguageDTO> getAllLanguages() {
-        return repository.findAll().stream().map(LanguageDTO::fromLanguage).toList();
+        // return repository.findAll().stream().map(LanguageDTO::fromLanguage).toList();
+        return repository.findAllLanguages().stream().map(LanguageDTO::fromLanguage).toList();
     }
 
     public Language addLanguage(Language language) {
