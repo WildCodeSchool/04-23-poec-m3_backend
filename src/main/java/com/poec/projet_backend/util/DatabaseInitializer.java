@@ -1,6 +1,9 @@
 package com.poec.projet_backend.util;
 
+import com.poec.projet_backend.domains.experience.ExperienceDTO;
+import com.poec.projet_backend.domains.formation.FormationDTO;
 import com.poec.projet_backend.domains.language.Language;
+import com.poec.projet_backend.domains.language.LanguageDTO;
 import com.poec.projet_backend.domains.language.LanguageRepository;
 import com.poec.projet_backend.domains.mentor.Mentor;
 import com.poec.projet_backend.domains.mentor.MentorDTO;
@@ -11,16 +14,16 @@ import com.poec.projet_backend.domains.skill.SkillRepository;
 import com.poec.projet_backend.domains.student.Student;
 import com.poec.projet_backend.domains.student.StudentDTO;
 import com.poec.projet_backend.domains.student.StudentService;
-import com.poec.projet_backend.user_app.Role;
-import com.poec.projet_backend.user_app.UserApp;
-import com.poec.projet_backend.user_app.UserAppRepository;
+import com.poec.projet_backend.user_app.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -32,8 +35,11 @@ public class DatabaseInitializer implements CommandLineRunner {
     private final LanguageRepository languageRepository;
     private final SkillRepository skillRepository;
     private final MentorService mentorService;
-    private final MentorRepository mentorRepository;
+    private final UserFormationService userFormationService;
     private final StudentService studentService;
+    private final UserExperienceService userExperienceService;
+    private final UserLanguageService userLanguageService;
+    private final UserSkillService userSkillService;
 
     @Override
     @Transactional
@@ -52,8 +58,6 @@ public class DatabaseInitializer implements CommandLineRunner {
             this.createUser("student5@gmail.com", "1234", Role.student);
 
 
-
-       // }
         createLanguage("francais");
         createLanguage("deutsch");
         createLanguage("arabe");
@@ -80,6 +84,50 @@ public class DatabaseInitializer implements CommandLineRunner {
         createStudent(new StudentDTO("Luc", "Girard", "Backend Developer", "Maître du backend", "https://picsum.photos/200", "github/lucgirard", "linkedin/lucgirard", 9L, mentorids));
         createStudent(new StudentDTO("Sophie", "Leblanc", "Fullstack Developer", "Génie du Fullstack", "https://picsum.photos/200", "github/sophieleblanc", "linkedin/sophieleblanc", 10L, mentorids));
 
+
+        // formation
+        for(int i = 0 ;i< 10 ;i++){
+            for(int j = 0 ;j < 3 ;j++){
+                String title = "formation " + j;
+                FormationDTO formation = FormationDTO.builder()
+                        .title("formation " + j)
+                        .dateEnd(LocalDate.of(2010 + i, 1, 8))
+                        .dateBegin(LocalDate.of(2021 + j, 1, 8))
+                        .city("Bordeaux")
+                        .userId((long) (i + 1))
+                        .build();
+                createFormation(formation);
+
+                title = "formation " + j;
+
+                ExperienceDTO exp = ExperienceDTO.builder()
+                        .title("formation " + j)
+                        .dateEnd(LocalDate.of(2010 + i, 1, 8))
+                        .dateBegin(LocalDate.of(2021 + j, 1, 8))
+                        .city("Bordeaux")
+                        .userId((long) (i + 1))
+                        .build();
+                createExperience(exp);
+
+            }
+        }
+        List<Language> languages = new ArrayList<>();
+        languages.add(new Language(1L,"Francais"));
+        languages.add(new Language(2L,"deutsch"));
+        languages.add(new Language(3L,"arabe"));
+
+        for(long i = 1 ;i<= 10 ;i++){
+            addUserLanguage(i,languages);
+        }
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(new Skill(1L,"Java"));
+        skills.add(new Skill(2L,"Python"));
+        skills.add(new Skill(3L,"C++"));
+
+        for(long i = 1 ;i<= 10 ;i++){
+            addUserSkill(i,skills);
+        }
     }
 
     private void createAdmin() {
@@ -131,4 +179,21 @@ public class DatabaseInitializer implements CommandLineRunner {
     private void createStudent(StudentDTO student){
         studentService.addStudentByUserId(student);
     }
+
+    private void createFormation(FormationDTO formation){
+        userFormationService.addUserFormation(formation);
+    }
+
+    private void createExperience(ExperienceDTO experience){
+        userExperienceService.addUserExperience(experience);
+    }
+
+    private void addUserLanguage(Long userId, List<Language> languages){
+        userLanguageService.updateUserLanguageList(userId, languages);
+    }
+
+    private void addUserSkill(Long userId, List<Skill> skills){
+        userSkillService.updateUserSkillList(userId, skills);
+    }
+
 }
