@@ -1,6 +1,7 @@
 package com.poec.projet_backend.domains.slot;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.poec.projet_backend.user_app.UserApp;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,10 +20,10 @@ public class Slot {
     @Column(name = "dateEnd")
     private LocalDateTime dateEnd;
     private boolean visio;
-    @Column(name = "userId")
-    private Long userId;
     @JsonProperty("isBooked")
     @Column(name = "isBooked")
     private boolean isBooked;
-
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    UserApp user;
 }

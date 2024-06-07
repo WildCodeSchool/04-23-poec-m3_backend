@@ -16,12 +16,12 @@ public class UserSlotService {
 
     public List <Slot> addSlotMentor(Slot slot) {
         try {
-            UserApp userApp = userRepository.findById(slot .getUserId()).orElseThrow(() -> new RuntimeException());
+            UserApp userApp = userRepository.findById(slot.getUser().getId()).orElseThrow(() -> new RuntimeException());
 
             slot.setBooked(false);
 
             slotRepository.save(slot);
-            return slotRepository.findAllByUserId( slot.getUserId());
+            return slotRepository.findAllByUserId( slot.getUser().getId());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
 

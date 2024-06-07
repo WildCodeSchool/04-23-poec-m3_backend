@@ -11,10 +11,12 @@ import java.util.List;
 @RequestMapping("/user/slot")
 public class UserSlotController {
 private final UserSlotService userSlotService;
+private final UserAppRepository userAppRepository;
 
 @PostMapping ("/add/{userId}")
 public List<Slot> addSlotMentor(@RequestBody Slot slot, @PathVariable Long userId) {
-    slot.setUserId(userId);
+    UserApp user = userAppRepository.findById(userId).orElseThrow(()->new RuntimeException("not found"));
+    slot.setUser(user);
     return userSlotService.addSlotMentor(slot);
 
 

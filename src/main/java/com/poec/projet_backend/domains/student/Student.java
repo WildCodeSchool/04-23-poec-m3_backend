@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.poec.projet_backend.domains.experience.Experience;
 import com.poec.projet_backend.domains.mentor.Mentor;
 import com.poec.projet_backend.domains.mentor.MentorDTO;
+import com.poec.projet_backend.domains.reservation.Reservation;
 import com.poec.projet_backend.user_app.UserApp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
