@@ -2,6 +2,7 @@ package com.poec.projet_backend.domains.student;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.poec.projet_backend.domains.experience.Experience;
 import com.poec.projet_backend.domains.mentor.Mentor;
 import com.poec.projet_backend.domains.mentor.MentorDTO;
 import com.poec.projet_backend.user_app.UserApp;
@@ -41,18 +42,21 @@ public class Student {
     private UserApp user;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "favorite_mentor_student"
-    )
+    @JoinTable(name = "favorite_mentor_student")
     @JsonIgnoreProperties("students")
     @JsonIgnore
     private List<Mentor> mentors = new ArrayList<>();
 
-    public StudentDTO toStudentDTO(){
+    public StudentDTO toStudentDTO() {
         List<Long> mentorIds = new ArrayList<>();
-        if(mentors != null){
-        mentorIds = mentors.stream().map(Mentor::getId).toList();
+        if (mentors != null) {
+            mentorIds = mentors.stream().map(Mentor::getId).toList();
         }
-        return  new StudentDTO(this.getFirstname(), this.getLastname(), this.getTitle(), this.getDescription(), this.getImgUrl(), this.getGithubUrl(), this.getLinkedinUrl(), this.getUser().getId(), mentorIds);
+        return new StudentDTO(this.getFirstname(), this.getLastname(), this.getTitle(), this.getDescription(),
+                this.getImgUrl(), this.getGithubUrl(), this.getLinkedinUrl(), this.getUser().getId(), mentorIds);
     }
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("student")
+    private List<Reservation> reservation = new ArrayList<>();
 }
