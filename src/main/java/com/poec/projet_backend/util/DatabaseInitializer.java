@@ -103,7 +103,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                                 "http://localhost:8080/images/raph.jpeg", "githubLucas", "linkedinLucas", 4L));
                 createMentor(new MentorDTO(5L, "Nelia", "Courtais", "Développeuse Back-End", "Je suis spécialisé dans Angular pour le front-end et Node.js pour le back-end, créant ainsi des applications web réactives et performantes. Mon expérience inclut également la gestion de bases de données comme MongoDB.",
                                 "http://localhost:8080/images/fred.webp", "githubEmma", "linkedinEmma", 5L));
-                createMentor(new MentorDTO(6L, "Pierre-Louis", "Treuh", "Développeur Full-Stack", "Utilisant React pour le front-end et Spring Boot pour le back-end, je développe des applications web complètes et robustes. Je suis passionné par la création de systèmes évolutifs et sécurisés.",
+                createMentor(new MentorDTO(6L, "Pierre-Louis", "Bastin", "Développeur Full-Stack", "Utilisant React pour le front-end et Spring Boot pour le back-end, je développe des applications web complètes et robustes. Je suis passionné par la création de systèmes évolutifs et sécurisés.",
                                 "http://localhost:8080/images/pilou.jpeg", "githubEmma", "linkedinEmma", 6L));
                 createMentor(new MentorDTO(7L, "Aurore", "Valeix", "Développeuse Back-End", "Avec Angular et Express, je construis des applications web interactives et modernes. Je m'assure que chaque projet est bien structuré et performant, en utilisant des bases de données SQL et NoSQL.",
                                 "http://localhost:8080/images/AuroreC.jpg", "githubEmma", "linkedinEmma", 7L));
