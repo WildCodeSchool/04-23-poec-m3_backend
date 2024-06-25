@@ -126,7 +126,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                         "http://localhost:8080/images/NassimeC.jpg", "githubEmma", "linkedinEmma", 15L));
 
                 List<Long> mentorids = new ArrayList<>();
-                createStudent(new StudentDTO(1L, "Mahdi", "Mcheik", "Developpeur Junior", "Passionné par l'art du développement, je suis avide de nouvelles connaissances et je m'efforce constamment de perfectionner mes compétences techniques et pratiques.",
+                createStudent(new StudentDTO(1L, "Mahdi", "Mcheik", "Developpeur Junior", "J'ai envie d'apprendre !",
                                 "http://localhost:8080/images/mahdi.jpg",
                                 "github/mariedelaire", "linkedin/mariedelaire", 16L, mentorids));
                 createStudent(new StudentDTO(2L, "Jean", "Dupont", "Data Scientist", "Expert en données",
