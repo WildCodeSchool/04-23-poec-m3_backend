@@ -30,6 +30,7 @@ public class Experience {
     private UserApp user;
 
     public static Experience from(ExperienceDTO experience, UserApp user) {
+        System.out.println("Experience.from");
         return Experience.builder()
                 .city(experience.getCity())
                 .country(experience.getCountry())
